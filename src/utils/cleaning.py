@@ -14,7 +14,6 @@ import numpy as np
 from typing import Optional, Union
 
 
-# ==================== ID Cleaning ====================
 
 def clean_facility_id(
     df: pd.DataFrame,

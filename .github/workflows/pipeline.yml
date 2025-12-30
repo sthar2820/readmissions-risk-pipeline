@@ -31,6 +31,39 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download raw data files
+        env:
+          # Update these URLs if CMS/CDC change them
+          # Hospital General Info: https://data.cms.gov/provider-data/dataset/xubh-q36u
+          # HRRP: https://data.cms.gov/provider-data/dataset/9n3s-kdb3
+          # SVI: https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html
+          HOSPITAL_INFO_URL: ${{ vars.HOSPITAL_INFO_URL || 'https://data.cms.gov/provider-data/api/1/datastore/query/xubh-q36u/0/download?format=csv' }}
+          HRRP_URL: ${{ vars.HRRP_URL || 'https://data.cms.gov/provider-data/api/1/datastore/query/9n3s-kdb3/0/download?format=csv' }}
+          SVI_URL: ${{ vars.SVI_URL || 'https://svi.cdc.gov/Documents/Data/2022/csv/states_counties/SVI_2022_US.csv' }}
+        run: |
+          mkdir -p data/raw
+
+          echo "Downloading Hospital General Information..."
+          curl -L -f -o data/raw/hospital_general_info.csv "$HOSPITAL_INFO_URL" || {
+            echo "::warning::Failed to download Hospital General Info. Check URL."
+            exit 1
+          }
+
+          echo "Downloading HRRP data..."
+          curl -L -f -o data/raw/hrrp.csv "$HRRP_URL" || {
+            echo "::warning::Failed to download HRRP data. Check URL."
+            exit 1
+          }
+
+          echo "Downloading CDC SVI data..."
+          curl -L -f -o data/raw/svi.csv "$SVI_URL" || {
+            echo "::warning::Failed to download SVI data. Check URL."
+            exit 1
+          }
+
+          echo "Download complete. Files in data/raw/:"
+          ls -lh data/raw/
+
       - name: Run 01_download.py (Ingest CSVs to Parquet)
         run: python src/pipeline/01_download.py
 

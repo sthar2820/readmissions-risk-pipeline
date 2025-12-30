@@ -73,6 +73,9 @@ jobs:
       - name: Run 03_export.py (Export for Power BI)
         run: python src/pipeline/03_export.py
 
+      - name: Validate pipeline outputs
+        run: python -m src.utils.validate
+
       - name: Upload Power BI CSV artifact
         uses: actions/upload-artifact@v4
         with:

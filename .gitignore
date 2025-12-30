@@ -1,0 +1,23 @@
+# Data files (too large for git)
+data/raw/*.csv
+data/processed/*.parquet
+
+# Generated reports (recreated by pipeline)
+reports/*.csv
+reports/*.md
+
+# OS files
+.DS_Store
+
+# Archives
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/

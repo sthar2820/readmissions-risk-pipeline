@@ -1,0 +1,14 @@
+paths:
+  raw: data/raw
+  processed: data/processed
+  reports: reports
+
+files:
+  hrrp: hrrp.csv
+  hospital_general: hospital_general_info.csv
+  svi: svi.csv
+
+keys:
+  facility_id: "Facility ID"
+  zip_hrrp: "ZIP Code"
+  zip_svi: "LOCATION"

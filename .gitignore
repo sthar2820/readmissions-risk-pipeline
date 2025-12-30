@@ -1,6 +1,8 @@
-# Data files (too large for git)
-data/raw/*.csv
+# Processed data (recreated by pipeline)
 data/processed/*.parquet
+
+# Keep raw CSVs in git for reproducibility
+# (remove this comment and add 'data/raw/*.csv' if files are too large)
 
 # Generated reports (recreated by pipeline)
 reports/*.csv
